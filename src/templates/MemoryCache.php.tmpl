@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}};
+
+class {{className}} implements {{interface}}
+{
+{{{fields}}}    /**
+     * @var {{interface}}
+     */
+    private $parent;
+
+    public function __construct(
+        {{interface}} $parent
+    ) {
+        $this->parent = $parent;
+    }
+{{{methods}}}
+}

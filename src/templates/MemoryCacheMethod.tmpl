@@ -1,0 +1,13 @@
+    public function {{method}}({{methodArguments}}): {{methodReturnType}}
+    {
+        $args = func_get_args();
+        $key = implode(':', $args);
+        if (isset($this->{{methodResults}}[$key])) {
+            return $this->{{methodResults}}[$key];
+        }
+
+        $result = $this->{{method}}(...$args);
+        $this->{{methodResults}}[$key] = $result;
+
+        return $result;
+    }
