@@ -13,10 +13,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GenerateCacheWrapper extends Command
 {
     protected static $defaultName = 'app:create-cache-wrapper';
+
     /**
      * @var Generator
      */
     private $generator;
+
     /**
      * @var MemoryCacheDescFactory
      */
@@ -37,11 +39,20 @@ class GenerateCacheWrapper extends Command
         $this->memoryCacheDescFactory = $memoryCacheDescFactory;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function configure()
     {
         $this->setDescription('Creates a cache wrapper class.');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->generator->execute();

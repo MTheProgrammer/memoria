@@ -25,6 +25,7 @@ class MemoryCacheMethodRenderer
 
     /**
      * @param ClassMethodDesc[] $methodDescList
+     *
      * @return string
      */
     public function render(array $methodDescList): string

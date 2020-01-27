@@ -13,9 +13,6 @@ class MethodArgumentsExtractor
      */
     private $reflectionClassContainer;
 
-    /**
-     * @param ReflectionClassContainer $reflectionClassContainer
-     */
     public function __construct(
         ReflectionClassContainer $reflectionClassContainer
     ) {
@@ -23,12 +20,14 @@ class MethodArgumentsExtractor
     }
 
     /**
-     * Extract method arguments as concatenated string
+     * Extract method arguments as concatenated string.
      *
      * @param string $className
      * @param string $methodName
-     * @return string
+     *
      * @throws \ReflectionException
+     *
+     * @return string
      */
     public function extract(string $className, string $methodName): string
     {
@@ -50,7 +49,7 @@ class MethodArgumentsExtractor
 
             return implode(' ', [
                 trim($groupType),
-                trim($groupName)
+                trim($groupName),
             ]);
         }, $method->getParameters());
 
@@ -59,8 +58,10 @@ class MethodArgumentsExtractor
 
     /**
      * @param \ReflectionParameter $parameter
-     * @return string
+     *
      * @throws \ReflectionException
+     *
+     * @return string
      */
     private function getDefaultValue(\ReflectionParameter $parameter): string
     {
@@ -72,10 +73,11 @@ class MethodArgumentsExtractor
     }
 
     /**
-     * Find if given public method exists in the class
+     * Find if given public method exists in the class.
      *
      * @param \ReflectionClass $reflection
      * @param string $methodName
+     *
      * @return \ReflectionMethod|null
      */
     private function findPublicMethod(\ReflectionClass $reflection, string $methodName): ?\ReflectionMethod

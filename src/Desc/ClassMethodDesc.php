@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Desc;
 
 /**
- * Parameters for ClassMethod.tmpl
+ * Parameters for ClassMethod.tmpl.
  */
 class ClassMethodDesc
 {

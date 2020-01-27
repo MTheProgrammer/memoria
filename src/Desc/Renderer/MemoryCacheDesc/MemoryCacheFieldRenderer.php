@@ -24,6 +24,7 @@ class MemoryCacheFieldRenderer
 
     /**
      * @param array $fieldNames
+     *
      * @return string
      */
     public function render(array $fieldNames): string

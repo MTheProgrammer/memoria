@@ -8,7 +8,7 @@ use ReflectionClass;
 use ReflectionException;
 
 /**
- * Class ReflectionClassContainer serves as cache for the reflection metadata about classes
+ * Class ReflectionClassContainer serves as cache for the reflection metadata about classes.
  */
 class ReflectionClassContainer
 {
@@ -19,8 +19,10 @@ class ReflectionClassContainer
 
     /**
      * @param string $className
-     * @return ReflectionClass
+     *
      * @throws ReflectionException
+     *
+     * @return ReflectionClass
      */
     public function get(string $className): ReflectionClass
     {

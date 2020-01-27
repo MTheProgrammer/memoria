@@ -9,9 +9,11 @@ use App\Desc\Renderer\MemoryCacheDesc\MemoryCacheMethodRenderer;
 use App\Generator\Generator;
 use App\Generator\MethodArgumentsExtractor;
 use App\Reflection\ReflectionClassContainer;
+use ReflectionException;
+use ReflectionMethod;
 
 /**
- * Factory for MemoryCacheDesc
+ * Factory for MemoryCacheDesc.
  */
 class MemoryCacheDescFactory
 {
@@ -29,22 +31,17 @@ class MemoryCacheDescFactory
      * @var ReflectionClassContainer
      */
     private $reflectionClassContainer;
+
     /**
      * @var MemoryCacheFieldRenderer
      */
     private $memoryCacheFieldRenderer;
+
     /**
      * @var MemoryCacheMethodRenderer
      */
     private $memoryCacheMethodRenderer;
 
-    /**
-     * @param MethodArgumentsExtractor $methodArgumentsExtractor
-     * @param Generator $generator
-     * @param ReflectionClassContainer $reflectionClassContainer
-     * @param MemoryCacheFieldRenderer $memoryCacheFieldRenderer
-     * @param MemoryCacheMethodRenderer $memoryCacheMethodRenderer
-     */
     public function __construct(
         MethodArgumentsExtractor $methodArgumentsExtractor,
         Generator $generator,
@@ -61,8 +58,10 @@ class MemoryCacheDescFactory
 
     /**
      * @param string $interfaceName
+     *
+     * @throws ReflectionException
+     *
      * @return MemoryCacheDesc
-     * @throws \ReflectionException
      */
     public function create(string $interfaceName): MemoryCacheDesc
     {
@@ -74,7 +73,7 @@ class MemoryCacheDescFactory
 
         $fields = [];
         $methodDescList = [];
-        $methods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+        $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
         foreach ($methods as $method) {
             $fieldName = $method->getName() . 'Results';
             $methodDesc = new ClassMethodDesc();
@@ -93,27 +92,19 @@ class MemoryCacheDescFactory
         return $desc;
     }
 
-    /**
-     * @param \ReflectionMethod $method
-     * @return string
-     */
-    private function getReturnType(\ReflectionMethod $method): string
+    private function getReturnType(ReflectionMethod $method): string
     {
         if (!$method->hasReturnType()) {
             return '';
         }
 
         if ($method->getReturnType()->isBuiltin()) {
-            return (string)$method->getReturnType();
+            return (string) $method->getReturnType();
         }
 
-        return '\\' . (string)$method->getReturnType();
+        return '\\' . (string) $method->getReturnType();
     }
 
-    /**
-     * @param string $interfaceName
-     * @return string
-     */
     private function getCacheClassName(string $interfaceName): string
     {
         $cacheClassName = str_replace('Interface', '', $interfaceName);
